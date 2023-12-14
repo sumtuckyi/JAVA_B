@@ -8,10 +8,10 @@ class UserSolution {
     private static final int MAX_CARD = 50000;
 
     private static class Table {
-        public static int joker;
+        public static int joker; // 현재 조커값
         public static int begin, end;
         public static int[] cards = new int[MAX_CARD * 2 + 5];
-        public static LinkedList<Integer>[][] idxList = new LinkedList[20][20];
+        public static LinkedList<Integer>[][] idxList = new LinkedList[20][20]; // 이 문제의 핵심
         // idxList[joker][score] := 조커의 점수가 joker일 때, 점수가 score인 인덱스 리스트
         // 예를 들어, 현재 joker = 9점이고, findNumber의 타겟 점수가 19 점이라면,
         // 우리는 idxList[9][19] => 원하는 인덱스 리스트를 바로 알 수 있다.
@@ -27,7 +27,7 @@ class UserSolution {
                     sum += cards[idx + i]; // 조커 카드가 아니면 카드에 적힌 값을 더해줌
             }
             for (int i = 0; i < 20; i++) {  // 조커 점수가 i 라고 가정하자. 
-                int num = (sum + (joker_cnt * i)) % 20; // score계산
+                int num = (sum + (joker_cnt * i)) % 20; // 각 가정별 score계산
                 if (mdir == 0)  // 왼쪽이면
                     idxList[i][num].add(0, idx); // deque의 맨 앞에 인덱스를 추가
                 else  // 오른쪽이면
@@ -87,7 +87,7 @@ class UserSolution {
             return 1;
         }
 
-        void changeJoker(int mJoker) {  // 조커 점수 바꾸기
+        void changeJoker(int mJoker) {  // 조커 점수 바꾸기 - 현재의 조커 점수를 기억만 하면 됨
             joker = mJoker % 20;
         }
     }
