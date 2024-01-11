@@ -64,14 +64,12 @@ public class Solution {
         init(
                 node * 2,
                 nodeLeft,
-                mid
-        ); // 왼쪽 자식 노드의 값을 초기화
+                mid); // 왼쪽 자식 노드의 값을 초기화
 
         init(
                 node * 2 + 1,
                 mid + 1,
-                nodeRight
-        ); // 오른쪽 자식 노드의 값을 초기화
+                nodeRight); // 오른쪽 자식 노드의 값을 초기화
 
         maxTree[node] = Math.max(maxTree[node * 2], maxTree[node * 2 + 1]); // 자식 노드의 값 중에서 더 큰 값을 저장
         minTree[node] = Math.min(minTree[node * 2], minTree[node * 2 + 1]);
@@ -87,7 +85,7 @@ public class Solution {
             maxTree[node] = value;
             minTree[node] = value;
             return;
-        } // 리프 노드인 경우, 해당 노드의 값을 갱신
+        } // 리프 노드인 경우, 해당 노드의 값을 갱신(값이 바뀐 노드를 찾았다!)
 
         // 쿼리인덱스가 해당 노드가 대표하는 구간에 속하는 경우
         int mid = (nodeLeft + nodeRight) / 2;
@@ -97,16 +95,14 @@ public class Solution {
                 nodeLeft,
                 mid,
                 queryIndex,
-                value
-        ); // 왼쪽 자식노드 재귀적 업데이트
+                value); // 왼쪽 자식노드 재귀적 업데이트
 
         update(
                 node * 2 + 1,
                 mid + 1,
                 nodeRight,
                 queryIndex,
-                value
-        ); // 오른쪽 자식 노드 재귀적 업데이트
+                value); // 오른쪽 자식 노드 재귀적 업데이트
 
         maxTree[node] = Math.max(maxTree[node * 2], maxTree[node * 2 + 1]);
         minTree[node] = Math.min(minTree[node * 2], minTree[node * 2 + 1]);
@@ -122,22 +118,20 @@ public class Solution {
             return maxTree[node];
         } // 노드가 대표하는 구간이 쿼리 구간에 포함되는 경우
 
-        // 노드가 대표하는 구간과 쿼리 구간이 일부 중첩되는 경우 - 자식 노드에 대해 재귀호출 
+        // 노드가 대표하는 구간과 쿼리 구간이 일부 중첩되는 경우 - 자식 노드에 대해 재귀호출
         int mid = (nodeLeft + nodeRight) / 2;
         int leftMax = queryMax(
                 node * 2,
                 nodeLeft,
                 mid,
                 queryLeft,
-                queryRight
-        );
+                queryRight);
         int rightMax = queryMax(
                 node * 2 + 1,
                 mid + 1,
                 nodeRight,
                 queryLeft,
-                queryRight
-        );
+                queryRight);
 
         return Math.max(leftMax, rightMax);
     }
@@ -158,18 +152,15 @@ public class Solution {
                 nodeLeft,
                 mid,
                 queryLeft,
-                queryRight
-        );
+                queryRight);
         int rightMin = queryMin(
                 node * 2 + 1,
                 mid + 1,
                 nodeRight,
                 queryLeft,
-                queryRight
-        );
+                queryRight);
 
         return Math.min(leftMin, rightMin);
     }
-
 
 }

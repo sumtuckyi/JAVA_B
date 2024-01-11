@@ -43,10 +43,10 @@ public class Solution {
                     if (left % 2 == 1) {
                         right = -right;
                     }
-                    update(1, 0, n - 1, left, right);  // O(Log N)
+                    update(1, 0, n - 1, left, right); // O(Log N)
                 } else if (query == 1) {
-                    long sum = querySum(1, 0, n - 1, left, right - 1);  // O(Log N)
-                    if (left % 2 == 1){
+                    long sum = querySum(1, 0, n - 1, left, right - 1); // O(Log N)
+                    if (left % 2 == 1) {
                         sum = -sum;
                     }
                     sb.append(sum).append(" ");
@@ -70,14 +70,12 @@ public class Solution {
         init(
                 node * 2,
                 nodeLeft,
-                mid
-        ); // 왼쪽 자식 노드 재귀호출
+                mid); // 왼쪽 자식 노드 재귀호출
 
         init(
                 node * 2 + 1,
                 mid + 1,
-                nodeRight
-        );
+                nodeRight);
         // 왼쪽 자식 노드가 대표하는 값 + 오른쪽 자식 노드가 대표하는 값
         sumTree[node] = sumTree[node * 2] + sumTree[node * 2 + 1];
     }
@@ -106,17 +104,15 @@ public class Solution {
                 nodeLeft,
                 mid,
                 queryIndex,
-                value
-        );
+                value);
 
         update(
                 node * 2 + 1,
                 mid + 1,
                 nodeRight,
                 queryIndex,
-                value
-        );
-
+                value);
+        // 리프 노드값 갱신 후, 루트로 거슬러 가면서 부분합을 갱신
         sumTree[node] = sumTree[node * 2] + sumTree[node * 2 + 1];
     }
 
@@ -127,10 +123,10 @@ public class Solution {
 
         // 관심 없는 영역을 관리하는 노드라면, 무시하자.
         if (queryRight < nodeLeft || nodeRight < queryLeft) {
-            return 0;  // 덧셈에 대한 항등원
+            return 0; // 덧셈에 대한 항등원
         }
 
-        // 뭉텅이로 처리할 수 있는 상태라면, 바로 처리하자 
+        // 뭉텅이로 처리할 수 있는 상태라면, 바로 처리하자
         if (queryLeft <= nodeLeft && nodeRight <= queryRight) {
             return sumTree[node];
         }
@@ -141,15 +137,13 @@ public class Solution {
                 nodeLeft,
                 mid,
                 queryLeft,
-                queryRight
-        );
+                queryRight);
         long rightSum = querySum(
                 node * 2 + 1,
                 mid + 1,
                 nodeRight,
                 queryLeft,
-                queryRight
-        );
+                queryRight);
 
         return leftSum + rightSum;
     }
